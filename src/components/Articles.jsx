@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 function Articles() {
-  const [listArticles, setListArticles] = useState({});
+  const [listArticles, setListArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
@@ -21,16 +21,18 @@ function Articles() {
     <section>
         <br/>
         <hr/>
+        <ul>
         {listArticles.map((article) => {
           return (
-          <div className="articleName">
-            <p>{article.title}</p>
+          <div className="articleName" key={article.article_id}>
+            <p><Link to={`/articles/${article.article_id}`}> {article.title} </Link></p>
             <p>Author: {article.author}</p>
             <p>Date: {article.created_at}</p>
             <hr/>
         </div>
           );
         })}
+        </ul>
     </section>
   );
 }
