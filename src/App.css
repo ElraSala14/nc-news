@@ -20,5 +20,14 @@ h2 {
   color: #61dafb;
 }
 
+.artcile_body {
+  text-align: justify;
+}
 
+.commentID {
+  text-align: left;
+}
 
+.h3 {
+  text-align: left;
+}
