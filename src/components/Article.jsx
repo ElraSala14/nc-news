@@ -1,22 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import Viewcomments from "./Viewcomments";
+import ErrorContext from "../Errorcontext/Errorcontext";
 
 function Article() {
 const { article_id } = useParams();
 const [article, setArticle] = useState({}); 
 const [isLoading, setIsLoading] = useState(true);
+const {setError} = useContext(ErrorContext)
 useEffect(() => {
-    setIsLoading(true);
-    fetch(`https://news-be-heroku.herokuapp.com/api/articles/${article_id}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then(({article}) => {
+    axios
+      .get(
+        `https://news-be-heroku.herokuapp.com/api/articles/${article_id}`
+      )
+      .then(({ data: { article } }) => {
         setArticle(article);
         setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err.response.data);
       });
   }, [article_id]);
+
+
+// useEffect(() => {
+//     setIsLoading(true);
+//     fetch(`https://news-be-heroku.herokuapp.com/api/articles/${article_id}`)
+//       .then((res) => {
+//         return res.json();
+//       })
+//       .then(({article}) => {
+//         setArticle(article);
+//         setIsLoading(false);
+//       });
+//   }, [article_id]);
 
   return isLoading ? (
     <p>Loading</p>
