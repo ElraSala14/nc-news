@@ -7,7 +7,7 @@ const [currComments, setCurrComments] = useState('');
 const [isLoading, setIsLoading] = useState(true);
 useEffect(() => {
     setIsLoading(true);
-    fetch(`https://news-be-heroku.herokuapp.com/api/articles/${article_id}/comments`)
+    fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`)
       .then((res) => {
         return res.json();
       })

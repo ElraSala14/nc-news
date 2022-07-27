@@ -10,6 +10,8 @@ import Viewcomments from './components/Viewcomments';
 import Error from './components/Error';
 import ErrorContext from './Errorcontext/Errorcontext';
 import Home from './components/Home';
+import Topics from './components/Topics';
+import Articlesbytopic from './components/Articlesbytopic';
 
 function App() {
   const [error, setError] = useState({msg: ''});
@@ -27,6 +29,9 @@ function App() {
             <Route path="/articles" element={<Articles />} />
             <Route path="/articles/:article_id" element={<Article />} />
             <Route path="/articles/:article_id/comments" element={<Viewcomments />} />
+            <Route path="/topics" element={<Topics />} />
+            <Route path="/topics/:topic" element={<Articlesbytopic />} />
+
 
           </Routes>  
     </div>

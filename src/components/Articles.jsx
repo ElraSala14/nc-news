@@ -5,7 +5,7 @@ function Articles() {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://news-be-heroku.herokuapp.com/api/articles")
+    fetch("https://nc-news-example-5.herokuapp.com/api/articles")
       .then((res) => {
         return res.json();
       })
