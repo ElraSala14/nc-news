@@ -6,6 +6,7 @@ import ErrorContext from "../Errorcontext/Errorcontext";
 
 function Article() {
 const { article_id } = useParams();
+const [addComment, setAddComment] = useState("");
 const [article, setArticle] = useState({}); 
 const [isLoading, setIsLoading] = useState(true);
 const {setError} = useContext(ErrorContext)
@@ -23,7 +24,23 @@ useEffect(() => {
       });
   });
 
-  return isLoading ? (
+  const handleSubmit= (event) =>{
+    event.preventDefault();
+    const commentToAdd = {
+         body: addComment, 
+         username: article.author,
+     }
+    fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(commentToAdd),
+      }).then((res) => res.json())
+      .then((data) => console.log(data))
+}
+
+return isLoading ? (
     <p>Loading</p>
   ) : (
     <section>
@@ -36,6 +53,13 @@ useEffect(() => {
             <p>Date: {article.created_at}</p>
             <div className="artcile_body">
             <p>{article.body}</p>
+            <div>
+    <form onSubmit={handleSubmit}>
+        <label htmlFor="comment_name"> Add comment</label>
+        <input id="add_comment" placeholder="comment" type="text" onChange={(event) => setAddComment(event.target.value)}></input>
+        <input type="submit" value="submit"></input>
+    </form>
+    </div>
             </div>
             <div className="viewComments" key={article.title}>
             <Viewcomments />
