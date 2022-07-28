@@ -12,7 +12,7 @@ const {setError} = useContext(ErrorContext)
 useEffect(() => {
     axios
       .get(
-        `https://news-be-heroku.herokuapp.com/api/articles/${article_id}`
+        `https://nc-news-example-5.herokuapp.com/api/articles/${article_id}`
       )
       .then(({ data: { article } }) => {
         setArticle(article);
@@ -21,20 +21,7 @@ useEffect(() => {
       .catch((err) => {
         setError(err.response.data);
       });
-  }, [article_id]);
-
-
-// useEffect(() => {
-//     setIsLoading(true);
-//     fetch(`https://news-be-heroku.herokuapp.com/api/articles/${article_id}`)
-//       .then((res) => {
-//         return res.json();
-//       })
-//       .then(({article}) => {
-//         setArticle(article);
-//         setIsLoading(false);
-//       });
-//   }, [article_id]);
+  });
 
   return isLoading ? (
     <p>Loading</p>
