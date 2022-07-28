@@ -2,16 +2,15 @@ import './App.css';
 import { React, useState} from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Articles from './components/Articles';
-import Title from './components/Tiltle';
-import Navbar from './components/Navbar';
-import Article from './components/Article';
-import Viewcomments from './components/Viewcomments';
 import Error from './components/Error';
 import ErrorContext from './Errorcontext/Errorcontext';
-import Home from './components/Home';
+
+import Articles from './components/Articles';
+import Title from './components/Tiltle';
+import Article from './components/Article';
+import Viewcomments from './components/Viewcomments';
+import Navbar from './components/Navbar';
 import Topics from './components/Topics';
-import Articlesbytopic from './components/Articlesbytopic';
 
 function App() {
   const [error, setError] = useState({msg: ''});
@@ -25,14 +24,10 @@ function App() {
       <Title />
       <Navbar />
       <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path="/articles" element={<Articles />} />
+            <Route path="/" element={<Articles />} />
+            <Route path="/topics/:topic" element={<Topics />} />
             <Route path="/articles/:article_id" element={<Article />} />
             <Route path="/articles/:article_id/comments" element={<Viewcomments />} />
-            <Route path="/topics" element={<Topics />} />
-            <Route path="/topics/:topic" element={<Articlesbytopic />} />
-
-
           </Routes>  
     </div>
     </BrowserRouter>

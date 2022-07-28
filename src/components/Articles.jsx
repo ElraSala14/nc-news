@@ -1,19 +1,34 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
 function Articles() {
+  const { topic } = useParams();
   const [listArticles, setListArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://nc-news-example-5.herokuapp.com/api/articles")
+    if ( topic ) {
+      setIsLoading(true);
+      fetch(`https://nc-news-example-5.herokuapp.com/api/articles?topic=${topic}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((body) => {
+          setListArticles(body.articles);
+          setIsLoading(false);
+        });
+    } else {
+      fetch("https://nc-news-example-5.herokuapp.com/api/articles")
       .then((res) => {
+        console.log(res, 'res')
         return res.json();
       })
       .then((body) => {
         setListArticles(body.articles);
         setIsLoading(false);
       });
-  }, []);
+    }
+  }, [topic]);
 
   return isLoading ? (
     <p>Loading</p>
