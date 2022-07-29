@@ -9,6 +9,8 @@ const { article_id } = useParams();
 const [addComment, setAddComment] = useState("");
 const [article, setArticle] = useState({}); 
 const [isLoading, setIsLoading] = useState(true);
+const [voteCount, setVoteCount] = useState(0)
+
 const {setError} = useContext(ErrorContext)
 useEffect(() => {
     axios
@@ -23,6 +25,22 @@ useEffect(() => {
         setError(err.response.data);
       });
   });
+
+
+
+  const handleUp= (event) => {
+    event.preventDefault();
+    setVoteCount(1);
+    console.log(voteCount)
+      fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ inc_votes: 1 }),
+      }).then(res => { return res.json()})
+    
+  }
 
   const handleSubmit= (event) =>{
     event.preventDefault();
@@ -56,18 +74,26 @@ return isLoading ? (
             <p> {article.title} </p>
             <p>Author: {article.author}</p>
             <p>Date: {article.created_at}</p>
+            <p>Votes:  {article.votes} </p>
             <div className="artcile_body">
             <p>{article.body}</p>
+            <div className="votes">
+              <button disabled={voteCount !== 0} onClick={handleUp}>
+              Vote
+            </button>
+            </div>
+           
             <div>
-    <form onSubmit={handleSubmit}>
-        <label htmlFor="comment_name"> Add comment</label>
-        <input id="add_comment" placeholder="comment" type="text" onChange={(event) => setAddComment(event.target.value)}></input>
-        <input type="submit" value="submit"></input>
-    </form>
-    </div>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="comment_name"> Add comment</label>
+                    <input id="add_comment" placeholder="comment" type="text" onChange={(event) => setAddComment(event.target.value)}></input>
+                    <input type="submit" value="submit"></input>
+                </form>
+            </div>
             </div>
             <div className="viewComments" key={article.title}>
             <Viewcomments />
+            
             </div>
             <hr/>
         </div>
