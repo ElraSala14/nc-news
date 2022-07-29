@@ -5,7 +5,7 @@ function Viewcomments() {
 const { article_id } = useParams();
 const [currComments, setCurrComments] = useState(''); 
 const [isLoading, setIsLoading] = useState(true);
-useEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
     fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`)
       .then((res) => {
@@ -17,6 +17,14 @@ useEffect(() => {
       });
   }, [article_id]);
 
+  const handleOnClickDelete = (comment_id) => {
+    fetch(
+      `https://nc-news-example-5.herokuapp.com/api/comments/${comment_id}`,
+      {
+        method: "DELETE",
+      }
+    ).then(() => window.location.reload(false));
+  };
   return isLoading ? (
     <p>Loading</p>
   ) : (
@@ -27,7 +35,9 @@ useEffect(() => {
           return (
           <div className="commentID" key={comment.comment_id}>
             <p>{comment.body}</p>
-            <hr/>
+           <button onClick={() => handleOnClickDelete(comment.comment_id)}> Delete comment </button>
+           <hr/>
+
         </div>
           );
         })}

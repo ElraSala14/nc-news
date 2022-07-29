@@ -12,11 +12,8 @@ const [isLoading, setIsLoading] = useState(true);
 const [voteCount, setVoteCount] = useState(0)
 
 const {setError} = useContext(ErrorContext)
-useEffect(() => {
-    axios
-      .get(
-        `https://nc-news-example-5.herokuapp.com/api/articles/${article_id}`
-      )
+  useEffect(() => {
+    axios.get(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}`)
       .then(({ data: { article } }) => {
         setArticle(article);
         setIsLoading(false);
@@ -61,7 +58,7 @@ useEffect(() => {
         return data.comment;
       });
     }
-}
+ }
 
 return isLoading ? (
     <p>Loading</p>
@@ -93,7 +90,6 @@ return isLoading ? (
             </div>
             <div className="viewComments" key={article.title}>
             <Viewcomments />
-            
             </div>
             <hr/>
         </div>
