@@ -26,32 +26,23 @@ useEffect(() => {
 
   const handleSubmit= (event) =>{
     event.preventDefault();
+    if (event.target[1].value){
     const commentToAdd = {
          body: addComment, 
          username: article.author,
      }
-     return axios
-    .post(
-      `https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`,
-      commentToAdd
-    )
-    .then((res) => {
-      window.location.reload(false);
-
-      return res.data.commentToAdd;
-
-    });
-
-    // fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(commentToAdd),
-    //   }).then(res => { return res.json()})
-    //   .then(({ data }) => {
-    //     return data.comment;
-    //   });
+      
+    fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(commentToAdd),
+      }).then(res => { return res.json()})
+      .then(({ data }) => {
+        return data.comment;
+      });
+    }
 }
 
 return isLoading ? (
