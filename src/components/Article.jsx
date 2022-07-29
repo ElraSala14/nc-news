@@ -30,14 +30,28 @@ useEffect(() => {
          body: addComment, 
          username: article.author,
      }
-    fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(commentToAdd),
-      }).then((res) => res.json())
-      .then((data) => console.log(data))
+     return axios
+    .post(
+      `https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`,
+      commentToAdd
+    )
+    .then((res) => {
+      window.location.reload(false);
+
+      return res.data.commentToAdd;
+
+    });
+
+    // fetch(`https://nc-news-example-5.herokuapp.com/api/articles/${article_id}/comments`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(commentToAdd),
+    //   }).then(res => { return res.json()})
+    //   .then(({ data }) => {
+    //     return data.comment;
+    //   });
 }
 
 return isLoading ? (
