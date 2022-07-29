@@ -31,3 +31,7 @@ h2 {
 .h3 {
   text-align: left;
 }
+
+.votes {
+  text-align: right;
+}
